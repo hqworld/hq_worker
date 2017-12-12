@@ -1,0 +1,70 @@
+{% extends 'naver_work/base.html' %}
+{% load staticfiles %}
+
+{% block idlist %}<li class="active"><a href="{% url 'idlist' %}"><i class="ion-flask"></i> <span class="nav-label">ID List</span></a></li>{% endblock %}
+{% block content %}
+
+            <!-- Page Content Start -->
+            <!-- ================== -->
+
+            <div class="wraper container-fluid">
+                <div class="page-title">
+                    <h3 class="title">Naver ID list </h3>
+                </div>
+
+                <!-- Search Form -->
+                <div class="row">
+                  <form method='GET', action=''>
+                    <div class="col-lg-8">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <input type="text" name='q' class="form-control" placeholder="Search" value='{{ request.get.q }}'>
+                                    <span class="input-group-btn">
+                                        <button type="submit" value='Search' class="btn btn-effect-ripple btn-primary"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End row -->
+                <!-- End Search From -->
+                <div class="row">
+                <div class="panel-heading cold-md-6">
+                  <a href="{% url 'idlist_add' %}"><button class="btn btn-icon btn-inverse m-b-5">Add <i class="fa fa-plus"></i> </button></a>
+                </div>
+              </div>
+
+                <div class="row">
+                  {% for idlist in idlists %}
+                    <div class="col-sm-6">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="media-main">
+                                    <a class="pull-left" href="#">
+                                        <img class="thumb-lg img-circle bx-s" src="{% static 'img/avatar-2.jpg' %}" alt="">
+                                    </a>
+                                    <div class="info">
+                                        <h4>{{ idlist.naver_id }}</h4>
+                                        <p class="text-muted">{{ idlist.naver_sex }}, {{ idlist.naver_nick }}</p>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <hr/>
+                                      <a class="pull-right" href="#">
+                                        <img class="thumb-sm img-circle" src="{% static 'img/naver_blog_img.png' %}" alt="">
+                                      </a>
+                            </div> <!-- panel-body -->
+                        </div> <!-- panel -->
+                    </div> <!-- end col -->
+                    {% endfor %}
+
+                </div> <!-- End row -->
+
+                {% include 'naver_work/paginator.html' with page=idlists %}
+
+
+            </div> <!-- END Wraper -->
+
+{% endblock %}

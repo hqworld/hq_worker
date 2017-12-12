@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'hq_main',
     'naver_work',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [

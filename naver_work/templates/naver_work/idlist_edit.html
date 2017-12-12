@@ -1,0 +1,74 @@
+{% extends 'naver_work/base.html' %}
+
+{% block idlist %}<li class="active"><a href="{% url 'idlist' %}"><i class="ion-flask"></i> <span class="nav-label">ID List</span></a></li>{% endblock %}
+{% block content %}
+
+<!-- Page Content Start -->
+<!-- ================== -->
+
+<div class="wraper container-fluid">
+    <div class="page-title">
+        <h3 class="title">Add Naver ID</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"><h3 class="panel-title">Naver ID</h3></div>
+                <div class="panel-body">
+                    <div class=" form p-20">
+                        <form class="cmxform form-horizontal tasi-form" id="commentForm" method="POST" action="#" novalidate="novalidate">{% csrf_token %}
+
+                            <div class="form-group ">
+                                <label for="cname" class="control-label col-lg-2">네이버 아이디*</label>
+                                <div class="col-lg-10">
+                                    {{ form.naver_id }}
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="cname" class="control-label col-lg-2">네이버 비밀번호*</label>
+                                <div class="col-lg-10">
+                                    {{ form.naver_pw }}
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="cname" class="control-label col-lg-2">성별*</label>
+                                <div class="col-lg-10">
+                                    {{ form.naver_sex }}
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="cname" class="control-label col-lg-2">닉네임*</label>
+                                <div class="col-lg-10">
+                                    {{ form.naver_nick }}
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="cname" class="control-label col-lg-2">블로그주소</label>
+                                <div class="col-lg-10">
+                                    {{ form.naver_blog }}
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label for="cname" class="control-label col-lg-2"></label>
+                                <div class="col-lg-10">
+                                  {% if form.errors %}
+                                  <p class="text-danger">*모든 필드를 입력하세요.</p>
+                                  {% endif %}
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button class="btn btn-success" type="submit">Save</button>
+                                    <a href="{% url 'idlist' %}"<button class="btn btn-default" type="button">Cancel</button></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div> <!-- .form -->
+                </div> <!-- panel-body -->
+            </div> <!-- panel -->
+        </div> <!-- col -->
+
+    </div> <!-- End row -->
+{% endblock %}

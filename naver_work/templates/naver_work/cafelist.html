@@ -1,0 +1,86 @@
+{% extends 'naver_work/base.html' %}
+{% load staticfiles %}
+
+{% block cafelist %}<li class="active"><a href="{% url 'cafelist' %}"><i class="ion-navicon"></i> <span class="nav-label">Cafe List</span></a></li>{% endblock %}
+{% block content %}
+
+            <!-- Page Content Start -->
+            <!-- ================== -->
+
+            <div class="wraper container-fluid">
+                <div class="page-title">
+                    <h3 class="title">Naver Cafelist</h3>
+                </div>
+
+                <!-- Search Form -->
+                <div class="row">
+                  <form method='GET', action=''>
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="input-group">
+                                    <input type="text" name='q' class="form-control" placeholder="Search" value='{{ request.get.q }}'>
+                                    <span class="input-group-btn">
+                                        <button type="submit" value='Search' class="btn btn-effect-ripple btn-primary"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End row -->
+                <!-- End Search From -->
+
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading cold-md-6">
+                                <h3 class="panel-title">Cafe list</h3>
+                            </div>
+
+                            <div class="panel-heading cold-md-6">
+                            <a href="{% url 'cafelist_add' %}"><button class="btn btn-icon btn-inverse m-b-5">Add <i class="fa fa-plus"></i> </button></a>
+                          </div>
+
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>#</th>
+                                                        <th>카페이름</th>
+                                                        <th>카페주소</th>
+                                                        <th>게시판</th>
+                                                        <th>수정</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                  {% for cafelist in cafelists %}
+                                                    <tr>
+                                                        <td>{{ cafelist.pk }}</td>
+                                                        <td>{{ cafelist.cafe_name }}</td>
+                                                        <td><a href="{{ cafelist.cafe_address }}">{{ cafelist.cafe_address }}</a></td>
+                                                        <td>{{ cafelist.cafe_board }}</td>
+                                                        <td> <a class="btn btn-default" href="{% url 'cafelist_edit' cafelist.pk %}"><span class="glyphicon glyphicon-pencil"></span></a></td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End row -->
+                {% include 'naver_work/paginator.html' with page=cafelists %}
+
+            </div>
+            <!-- Page Content Ends -->
+            <!-- ================== -->
+
+{% endblock %}
