@@ -4,6 +4,13 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import NaverAccount, NaverCafeList, PostList
 from django.utils import timezone
 from .forms import NaverAccountForm, NaverCafeListForm
+from .naver_login import naver_work
+
+from selenium import webdriver
+import time, requests
+from selenium.webdriver.common.keys import Keys
+
+
 
 # Create your views here.
 def naver_work(request):
@@ -26,12 +33,30 @@ def idlist(request):
 def idlist_add(request):
     if request.method == "POST":
         form = NaverAccountForm(request.POST)
+
         if form.is_valid():
             post = form.save(commit=False)
             post.author = request.user
             post.published_date = timezone.now()
-            post.save()
-            return redirect('idlist')
+
+            naver_id = str(post.naver_id) #사용자입력아이디
+            naver_pw = str(post.naver_pw) #사용자입력비밀번호
+
+            driver = webdriver.Chrome('/Users/HqPark/Desktop/naver_work/chromedriver')
+            driver.get('https://nid.naver.com/nidlogin.login')
+            driver.find_element_by_name('id').send_keys(naver_id)
+            driver.find_element_by_name('pw').send_keys(naver_pw)
+
+            # 로그인버튼 클릭
+            ok = driver.find_element_by_xpath('//*[@id="frmNIDLogin"]/fieldset/input').click()
+            ok = requests.get('https://nid.naver.com/user2/help/myInfo.nhn')
+            
+            if ok.status_code == 307:
+                post.save()
+                print('{} 네이버 아이디 유효'.format(naver_id))
+                return redirect('idlist')
+            else:
+                form = NaverAccountForm(request.POST)
     else:
         form = NaverAccountForm()
 

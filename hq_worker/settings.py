@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'hq_main',
     'naver_work',
     'django_summernote',
+    'taggit',
+
 ]
 
 MIDDLEWARE = [

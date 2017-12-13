@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.hashers import make_password
+from taggit.managers import TaggableManager
 
 #네이버계정추가필드
 class NaverAccount(models.Model):
@@ -48,6 +49,7 @@ class PostList(models.Model):
     title = models.CharField(max_length=50)
     article = models.TextField()
     published_date = models.DateTimeField(default=timezone.now)
+    tags = TaggableManager()
 
     def publish(self):
         self.published_date = timezone.now()
