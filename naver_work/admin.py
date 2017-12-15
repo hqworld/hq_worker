@@ -1,12 +1,8 @@
 from django.contrib import admin
-from .models import NaverAccount, NaverCafeList, PostList
-from django_summernote.admin import SummernoteModelAdmin
+from .models import NaverTask, NaverAccount, NaverCafeList, PostList
 
 
-
-class PostListAdmin(SummernoteModelAdmin):
-    pass
-
+admin.site.register(NaverTask)
 admin.site.register(NaverAccount)
 admin.site.register(NaverCafeList)
-admin.site.register(PostList, PostListAdmin)
+admin.site.register(PostList)

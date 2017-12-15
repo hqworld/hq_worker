@@ -42,6 +42,7 @@ class TaggableRel(ManyToManyRel):
         self.through = through
         self.field = field
         self.through_fields = None
+        self.related_query_name = None
 
     def get_joining_columns(self):
         return self.field.get_reverse_joining_columns()

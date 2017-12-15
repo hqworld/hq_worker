@@ -33,8 +33,13 @@
         <link href="{% static 'css/style.css' %}" rel="stylesheet">
         <link href="{% static 'css/helper.css' %}" rel="stylesheet">
 
+        <!--bootstrap-wysihtml5-->
+        <link rel="stylesheet" type="text/css" href="{% static 'assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css' %}" />
+        <link href="{% static 'assets/summernote/summernote.css' %}" rel="stylesheet" />
 
+        <link href="{% static 'assets/tagsinput/jquery.tagsinput.css' %}" rel="stylesheet" />
 
+{% block css %}{% endblock %}
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
         <!--[if lt IE 9]>
           <script src="js/html5shiv.js"></script>
@@ -62,8 +67,10 @@
             {% block nav %}
             <nav class="navigation">
                 <ul class="list-unstyled">
+
                     <li class="has-submenu">{% block naver_work %}<a href="{% url 'naver_work' %}"><i class="ion-home"></i> <span class="nav-label">Dashboard</span></a>{% endblock %}</li>
-                    <li class="has-submenu">{% block idlist %}<a href="{% url 'idlist' %}"><i class="ion-flask"></i> <span class="nav-label">ID List</span></a>{% endblock %}</li>
+                    <li class="has-submenu">{% block task %}<a href="{% url 'task' %}"><i class="ion-flask"></i> <span class="nav-label">TASK</span></a>{% endblock %}</li>
+                    <li class="has-submenu">{% block idlist %}<a href="{% url 'idlist' %}"><i class="ion-grid"></i> <span class="nav-label">ID List</span></a>{% endblock %}</li>
                     <li class="has-submenu">{% block cafelist %}<a href="{% url 'cafelist' %}"><i class="ion-navicon"></i> <span class="nav-label">Cafe List</span></a>{% endblock %}</li>
                     <li class="has-submenu">{% block postlist %}<a href="{% url 'postlist' %}"><i class="ion-compose"></i> <span class="nav-label">Post</span></a>{% endblock %}</li>
 
@@ -88,17 +95,7 @@
                             <li><a href="responsive-table.html">Responsive Table</a></li>
                         </ul>
                     </li>
-                    <li class="has-submenu"><a href="#"><i class="ion-stats-bars"></i> <span class="nav-label">Charts</span><span class="badge bg-purple">1</span></a>
-                        <ul class="list-unstyled">
-                            <li><a href="morris-chart.html">Morris Chart</a></li>
-                            <li><a href="chartjs.html">Chartjs</a></li>
-                            <li><a href="flot-chart.html">Flot Chart</a></li>
-                            <li><a href="rickshaw-chart.html">Rickshaw Chart</a></li>
-                            <li><a href="peity-chart.html">Peity Chart</a></li>
-                            <li><a href="c3-chart.html">C3 Chart</a></li>
-                            <li><a href="other-chart.html">Other Chart</a></li>
-                        </ul>
-                    </li>
+
 
                     <li class="has-submenu"><a href="#"><i class="ion-email"></i> <span class="nav-label">Mail</span></a>
                         <ul class="list-unstyled">
@@ -351,5 +348,6 @@
         <script src="{% static 'assets/jquery-datatables-editable/datatables.editable.init.js' %}"></script>
 
 
+{% block script %}{% endblock %}
     </body>
 </html>

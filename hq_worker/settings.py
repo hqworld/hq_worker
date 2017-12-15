@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'hq_main',
+    'crispy_forms',
     'naver_work',
     'django_summernote',
     'taggit',
@@ -124,3 +125,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+TAGGIT_CASE_INSENSITIVE = True
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
