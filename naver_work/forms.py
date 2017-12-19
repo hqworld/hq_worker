@@ -3,19 +3,6 @@ from .models import NaverTask, NaverAccount, NaverCafeList, PostList
 from django_summernote.widgets import SummernoteWidget, SummernoteInplaceWidget
 from taggit.forms import *
 
-
-class NaverTaskForm(forms.ModelForm):
-    naver_id = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'아이디를 입력하세요.'}))
-    cafe_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'카페 이름'}))
-    cafe_address = forms.URLField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'카페 주소'}))
-    title = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control', 'placeholder':'제목'}))
-    article = forms.CharField(widget=SummernoteWidget(attrs={'width': '100%', 'height': '400px'}))
-
-    class Meta:
-        model = NaverTask
-        fields = ('naver_id', 'cafe_name', 'title',)
-
-
 class NaverAccountForm(forms.ModelForm):
     naver_id = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'아이디를 입력하세요.'}))
     naver_pw = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control','placeholder':'비밀번호를 입력하세요.'}))
@@ -27,6 +14,7 @@ class NaverAccountForm(forms.ModelForm):
     class Meta:
         model = NaverAccount
         fields = ('naver_id', 'naver_pw', 'naver_sex', 'naver_nick','naver_blog',)
+
 
 class NaverCafeListForm(forms.ModelForm):
     cafe_name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'카페 이름'}))
@@ -43,3 +31,9 @@ class PostListForm(forms.ModelForm):
     class Meta:
         model = PostList
         fields = ('title', 'article','tags',)
+
+
+class NaverTaskForm(forms.ModelForm):
+    class Meta:
+        model = NaverTask
+        fields = ('account', 'cafe', 'post',)

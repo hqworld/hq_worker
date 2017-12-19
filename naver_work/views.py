@@ -35,47 +35,36 @@ def naver_work(request):
     return render(request, 'naver_work/index.html', {})
 
 
-def task(request): #실제 글 작업태스크(추가로 작업대기시간 등 디테일 추가)
-    idlists = NaverAccount.objects.all()
-    cafelists = NaverCafeList.objects.all()
-    postlists = PostList.objects.all()
-
+def task(request): #실제 글 작업태스크(Todo: 작업대기시간 등 디테일 추가해야함)
     if request.method == 'POST':
-        
         form = NaverTaskForm(request.POST) # A form bound to the POST data
 
         if form.is_valid(): # All validation rules pass
-
             post = form.save(commit=False)
             post.author = request.user
             post.published_date = timezone.now()
 
-            naver_id = str(post.naver_id) #사용자입력아이디
-            naver_pw = str(post.naver_pw) #사용자입력비밀번호
+            post.save()
+            form.save_m2m()
 
-            driver = webdriver.PhantomJS('/Users/HqPark/Desktop/naver_work/phantomjs-2.1.1-macosx 2/bin/phantomjs')
-            driver.get('https://nid.naver.com/nidlogin.login')
-            driver.find_element_by_name('id').send_keys(naver_id)
-            driver.find_element_by_name('pw').send_keys(naver_pw)
-            # 로그인버튼 클릭
-            driver.find_element_by_xpath('//*[@id="frmNIDLogin"]/fieldset/input').click()
+            #네이버접속 데이터
+            naver_id = [i.naver_id for i in form.cleaned_data['account']]
+            naver_pw = [i.naver_pw for i in form.cleaned_data['account']]
+            #cafe_name = [i.cafe_name for i in form.cleaned_data['cafe']]
+            #cafe_address = [i.cafe_address for i in form.cleaned_data['cafe']]
+            #cafe_board = [i.cafe_board for i in form.cleaned_data['cafe']]
+            #title = [i.title for i in form.cleaned_data['post']]
+            #article = [i.article for i in form.cleaned_data['post']]
+            #tags = [i.tags for i in form.cleaned_data['post']]
+            print(naver_id, naver_pw)
 
-            if driver.current_url == 'https://www.naver.com/':
-                post.save()
-                print('{} 네이버 아이디 유효'.format(naver_id))
-                return redirect('idlist')
+            #모듈을 만들어서 돌아가게끔 해보자!
 
-            else:
-                print('{} 비밀번호가 맞지 않습니다.'.format(naver_id))
-                form = NaverTaskForm(request.POST)
-
+            return redirect('task')
     else:
-        form = NaverTaskForm() # An unbound form
+        form = NaverTaskForm()
 
-    #todo:설정한 [naver_id,naver_pw],[cafe_address,cafe_board],[title,article,tags]를 받는다.
-    #todo:얻은 값으로 로그인 > 카페접속 > 글쓰기 > 글작성완료 로직.
-
-    context = {'idlists': idlists, 'cafelists': cafelists, 'postlists': postlists}
+    context = {'form': form}
 
 
     return render(request, 'naver_work/task.html', context)

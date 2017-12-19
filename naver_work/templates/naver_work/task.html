@@ -34,7 +34,7 @@
                             <div class="panel-body">
 
                                 <form action="#" class="form-horizontal" method="POST">{% csrf_token %}
-
+{{ form|crispy }}
                                     <div class="form-group">
                                         <label class="control-label col-md-3">Naver_id</label>
                                         <div class="col-md-9">

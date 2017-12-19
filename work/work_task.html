@@ -1,0 +1,28 @@
+{% extends 'work/base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+{% block task %}<li class="active"><a href="{% url 'task' %}"><i class="ion-flask"></i> <span class="nav-label">Task</span></a></li>{% endblock %}
+
+{% block css %}
+<!-- Plugins css-->
+<link href="{% static 'assets/tagsinput/jquery.tagsinput.css' %}" rel="stylesheet" />
+<link href="{% static 'assets/toggles/toggles.css' %}" rel="stylesheet" />
+<link href="{% static 'assets/timepicker/bootstrap-timepicker.min.css' %}" rel="stylesheet" />
+<link href="{% static 'assets/timepicker/bootstrap-datepicker.min.css' %}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{% static 'assets/colorpicker/colorpicker.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'assets/jquery-multi-select/multi-select.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'assets/select2/select2.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+
+<form action="#" class="form-horizontal" method="POST">{% csrf_token %}
+{{ form|crispy }}
+
+<button class="btn btn-success" type="submit">WORK</button>
+<a href="{% url 'task' %}"<button class="btn btn-default" type="button">Cancel</button></a>
+</div>
+
+{% endblock %}
